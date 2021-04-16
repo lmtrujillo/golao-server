@@ -1,2 +1,2 @@
 **Start app**
-> `<run nodemon index.js>`
+`<run nodemon index.js>`
