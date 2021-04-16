@@ -1,3 +1,3 @@
-**Start app**
+**Run app: **
 
-`<run nodemon index.js>`
+`run nodemon index.js`
