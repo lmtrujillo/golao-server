@@ -42,9 +42,8 @@ function getNWeekFromLeague(n_week, league_id) {
     var rounds_endpoint;
     var fixtures_endpoint;
 
-    seasons_endpoint = process.env.API_URL + "seasons" + api_key_token;
-
     // Getting all available seasons
+    seasons_endpoint = process.env.API_URL + "seasons" + api_key_token;
     fetch(seasons_endpoint)
         .then(response => response.json())
         .then((res) => {
