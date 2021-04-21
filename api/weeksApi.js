@@ -6,45 +6,43 @@ import { getSeasons } from './seasonsApi.js'
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
 
 // GET N WEEK
-export function getWeek(week_id) {
+export async function getWeek(week_id) {
     var endpoint = process.env.API_URL + "rounds/" + week_id + api_key_token;
-    var week = {};
-
-    fetch(endpoint)
+    var week = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return week = res.data;
+            return res.data;
         })
         .catch((error) => {
             return error('Error:', error);
         });
+
+    return week;
 }
 
 
 // GET N WEEK
-export function getWeeksNSeason(season_id) {
-    rounds_endpoint = process.env.API_URL + "rounds/season/" + season_id + api_key_token;
-    var weeks = {};
-
-    fetch(endpoint)
+export async function getWeeksNSeason(season_id) {
+    var endpoint = process.env.API_URL + "rounds/season/" + season_id + api_key_token;
+    var weeks = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return weeks = res.data;
+            return res.data;
         })
         .catch((error) => {
             return error('Error:', error);
         });
+    
+    return weeks;
 }
 
 // GET ALL WEEKS FROM N LEAGUE
-export function getWeeksFromNLeague(league_id) {
+export async function getWeeksFromNLeague(league_id) {
     var weeks = [];
 
-    seasons = getSeasons();
+    var seasons = await getSeasons();
     var current_season_id = seasons.find(x => (x.is_current_season === true &&  x.league_id === league_id)).id
  
-    return weeks = getWeeksNSeason(current_season_id);
-                        
-                   
-     
+    return weeks = await getWeeksNSeason(current_season_id);
+
 }

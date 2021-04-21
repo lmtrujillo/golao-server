@@ -5,13 +5,12 @@ dotenv.config()
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
 
 // GET ALL THE LEAGUES
-export function getLeagues() {
+export async function getLeagues(){
     var endpoint = process.env.API_URL + "leagues" + api_key_token;
-    var leagues = []; 
-    fetch(endpoint)
+    var leagues = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            leagues = res.data;
+            return res.data;
         })
         .catch((error) => {
             return error('Error:', error);
@@ -21,16 +20,16 @@ export function getLeagues() {
 }
 
 // GET N LEAGUE
-export function getLeague(league_id) {
+export async function getLeague(league_id) {
     var endpoint = process.env.API_URL + "leagues/" + league_id + api_key_token;
-    var soccerLeague = {};
-
-    fetch(endpoint)
+    var soccerLeague = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return soccerLeague = res.data;
+            return res.data;
         })
         .catch((error) => {
             return error('Error:', error);
         });
+    
+    return soccerLeague;
 }
