@@ -116,9 +116,27 @@ function getWeeksFromNLeague(league_id) {
         });
 }
 
+
+// GET N WEEK
+function getNWeek(week_id) {
+    var week;
+    // Getting all round by id
+    var round_endpoint = process.env.API_URL + "rounds/" + week_id + api_key_token;
+    fetch(round_endpoint)
+        .then(response => response.json())
+        .then((res) => {
+            weeks = res.data;
+            console.log(weeks);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
 // API TEST CALLS:
 
 //getLeagues();
 //getLeague(501);
 //getNWeekMatchesFromLeague(2, 271);
-getWeeksFromNLeague(271);
+//getWeeksFromNLeague(271);
+//getNWeek(199448);
