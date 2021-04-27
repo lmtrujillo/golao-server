@@ -33,3 +33,19 @@ export async function getLeague(league_id) {
     
     return soccerLeague;
 }
+
+
+// GET N LEAGUE BY NAME
+export async function getLeagueByName(league_name) {
+    var endpoint = process.env.API_URL + "leagues/search" + league_name + api_key_token;
+    var soccerLeague = await fetch(endpoint)
+        .then(response => response.json())
+        .then((res) => {
+            return res.data;
+        })
+        .catch((error) => {
+            return error('Error:', error);
+        });
+    
+    return soccerLeague;
+}

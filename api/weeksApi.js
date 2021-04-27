@@ -21,7 +21,7 @@ export async function getWeek(week_id) {
 }
 
 
-// GET N WEEK
+// GET WEEKS FROM N SEASON
 export async function getWeeksNSeason(season_id) {
     var endpoint = process.env.API_URL + "rounds/season/" + season_id + api_key_token;
     var weeks = await fetch(endpoint)
