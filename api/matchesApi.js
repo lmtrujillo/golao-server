@@ -51,3 +51,18 @@ export async function getMatchesFromNWeekLeague(n_week, league_id) {
                             
     return matches = await getMatchTimeframe(round_start_date, round_end_date);
 }
+
+// GET MATCHES FROM TIMEFRAME FOR TEAM
+export async function getMatchTimeframeTeam(start_date, end_date, team_id) {
+    var endpoint = process.env.API_URL + "fixtures/between/" + start_date + "/" + end_date + "/" + team_id + api_key_token;
+    var matches = await fetch(endpoint)
+          .then(response => response.json())
+          .then((res) => {
+              return res.data;
+          })
+          .catch((error) => {
+              return error('Error:', error);
+          });
+      
+      return matches;
+  }
