@@ -1,6 +1,9 @@
 import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 dotenv.config()
+import Ajv from 'ajv'
+const ajv = new Ajv()
+import { leagueSchema } from '../schemas/leagueSchemas.js'
 
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
 
@@ -10,7 +13,7 @@ export async function getLeagues(){
     var leagues = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(leagueSchema, res.data) ? res.data : ajv.errors)
         })
         .catch((error) => {
             return error('Error:', error);

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lmtrujillo/golao-server#readme",
   "dependencies": {
+    "ajv": "^8.2.0",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1"
   },
