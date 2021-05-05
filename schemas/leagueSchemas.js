@@ -16,8 +16,6 @@ export const leaguesSchema = {
 
 
 export const leagueSchema = {
-  type: "object",
-  items: {
     title: "Data",
     description: "Data array schema",
     type: "object",
@@ -36,6 +34,5 @@ export const leagueSchema = {
       live_standings: {type: "boolean"},
       coverage: coverageSchema
     }
-  }
 }
 

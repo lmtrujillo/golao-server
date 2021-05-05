@@ -44,7 +44,7 @@ export async function getLeagueByName(league_name) {
     var soccerLeague = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(leaguesSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error('Error:', error);
