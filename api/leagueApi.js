@@ -16,7 +16,7 @@ export async function getLeagues(){
             return (ajv.validate(leaguesSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return leagues;
@@ -31,7 +31,7 @@ export async function getLeague(league_id) {
             return (ajv.validate(leagueSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return soccerLeague;
@@ -47,7 +47,7 @@ export async function getLeagueByName(league_name) {
             return (ajv.validate(leaguesSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return soccerLeague;

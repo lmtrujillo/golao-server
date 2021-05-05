@@ -13,7 +13,7 @@ export async function getOddsFixtureBookmaker(fixture_id, bookmaker_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return odds;
@@ -28,7 +28,7 @@ export async function getOddsFixtureMarket(fixture_id, market_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return odds;
@@ -43,7 +43,7 @@ export async function getOddsFixture(fixture_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return odds;
@@ -58,7 +58,7 @@ export async function getInplayOddsFixture(fixture_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return odds;

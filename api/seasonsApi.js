@@ -13,7 +13,7 @@ export async function getSeasons() {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return seasons;
@@ -28,7 +28,7 @@ export async function getSeason(season_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return season;

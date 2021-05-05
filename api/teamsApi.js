@@ -13,7 +13,7 @@ export async function getTeam(team_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return teams;
@@ -28,7 +28,7 @@ export async function getTeamByName(team_name) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return teams;
@@ -45,7 +45,7 @@ export async function getTeamBySeason(season_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return teams;
@@ -61,7 +61,7 @@ export async function getPlayersByTeam(team_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return teams;
@@ -77,7 +77,7 @@ export async function getCurrentLeaguesByTeam(team_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return teams;
@@ -93,7 +93,7 @@ export async function getLeaguesByTeam(team_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return teams;

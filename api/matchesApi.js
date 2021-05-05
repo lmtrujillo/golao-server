@@ -1,8 +1,11 @@
 import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 dotenv.config()
+import Ajv from 'ajv'
+const ajv = new Ajv()
 import { getSeasons } from './seasonsApi.js'
 import { getWeeksNSeason } from './weeksApi.js'
+import { matchSchema } from '../schemas/matchesSchemas.js'
 
 
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
@@ -13,10 +16,10 @@ export async function getMatch(match_id) {
     var match = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(matchSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return match;
@@ -31,7 +34,7 @@ export async function getMatchTimeframe(start_date, end_date) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return matches;
@@ -61,7 +64,7 @@ export async function getMatchTimeframeTeam(start_date, end_date, team_id) {
               return res.data;
           })
           .catch((error) => {
-              return error('Error:', error);
+              return error;
           });
       
       return matches;

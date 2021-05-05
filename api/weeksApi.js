@@ -14,7 +14,7 @@ export async function getWeek(week_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return week;
@@ -30,7 +30,7 @@ export async function getWeeksNSeason(season_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
     
     return weeks;

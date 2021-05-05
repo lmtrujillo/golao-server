@@ -1,7 +1,7 @@
 import { getTeam } from './api/teamsApi.js'
 import { getLeague, getLeagues} from './api/leagueApi.js';
 import { getWeeksFromNLeague } from './api/weeksApi.js';
-import { getMatchesFromNWeekLeague } from './api/matchesApi.js';
+import { getMatch, getMatchesFromNWeekLeague } from './api/matchesApi.js';
 
 
 // API TEST CALLS:
@@ -11,7 +11,7 @@ import { getMatchesFromNWeekLeague } from './api/matchesApi.js';
 //getMatchesFromNWeekLeague(2, 271);
 //getWeeksFromNLeague(271);
 //getNWeek(199448);
-//getNMatch(16773965);
+//getMatch(16773965);
 //getTeam(939);
 
 async function testing () {
@@ -19,6 +19,7 @@ async function testing () {
 //  console.log(await getTeam(939));
 //  console.log(await getMatchesFromNWeekLeague(2, 271));
 //  console.log(await getWeeksFromNLeague(271));
+    console.log(await getMatch(16773965));
 }
 
 testing();

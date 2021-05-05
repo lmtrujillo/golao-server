@@ -13,7 +13,7 @@ export async function getVenue(venue_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return venue;
@@ -28,7 +28,7 @@ export async function getVenueSeason(season_id) {
             return res.data;
         })
         .catch((error) => {
-            return error('Error:', error);
+            return error;
         });
 
     return venue;
