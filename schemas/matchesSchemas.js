@@ -1,5 +1,3 @@
-
-
 const temperatureSchema = {
     type: "object",
     properties: {
@@ -24,8 +22,6 @@ const coordinatesSchema = {
     }
 }
 
-
-
 const weatherReportSchema = {
     type: "object",
     properties: {
@@ -41,9 +37,8 @@ const weatherReportSchema = {
         coordinates: coordinatesSchema,
         updated_at: {type: "string"}
     },
-  }
+}
   
-
 const formationsSchema = {
     type: "object",
     properties: {
@@ -67,18 +62,22 @@ const scoresSchema = {
     }
 }
 
+const startingAtSchema = {
+    type: "object",
+    properties: {
+        date_time: {type: "string"},
+        date: {type: "string"},
+        time: {type: "string"},
+        timestamp: {type: "integer"},
+        timezone: {type: "string"}
+    }
+}
 
 const timeSchema = {
     type: "object",
     properties: {
         status: {type: "string"},
-        starting_at: {
-            date_time: {type: "string"},
-            date: {type: "string"},
-            time: {type: "string"},
-            timestamp: {type: "integer"},
-            timezone: {type: "string"}
-        },
+        starting_at: startingAtSchema,
         minute: {type: "integer"},
         second: {type: "integer", "nullable": true},
         added_time: {type: "integer", "nullable": true},
@@ -103,7 +102,6 @@ const standingsSchema = {
     }
 }
 
-
 const assistantsSchema = {
     type: "object",
     properties: {
@@ -113,7 +111,7 @@ const assistantsSchema = {
     }
 }
 
-const colorsSchema = {
+const colorsTeamSchema = {
     type: "object",
     properties: {
         color: {type: "string"},
@@ -122,11 +120,20 @@ const colorsSchema = {
 
 }
 
+const colorsSchema = {
+    type: "object",
+    properties: {
+        localteam: colorsTeamSchema,
+        visitorteam: colorsTeamSchema
+    }
+
+}
+
 export const matchSchema = {
-      title: "Data",
-      description: "Data match schema",
-      type: "object",
-      properties: {
+    title: "Data",
+    description: "Data match schema",
+    type: "object",
+    properties: {
         id: {type: "integer"},
         league_id: {type: "integer"},
         season_id: {type: "integer"},
@@ -153,13 +160,8 @@ export const matchSchema = {
         standings: standingsSchema,
         assistants: assistantsSchema,
         leg: {type: "string"},
-        colors: {
-            localteam: colorsSchema,
-            visitorteam: colorsSchema
-        },
+        colors: colorsSchema,
         deleted: {type: "boolean"},
         is_placeholder: {type: "boolean"}
-      }
-  }
-  
-  
+    }
+}
