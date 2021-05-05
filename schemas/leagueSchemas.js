@@ -1,3 +1,4 @@
+
 const coverageSchema = {
   type: "object",
   properties: {

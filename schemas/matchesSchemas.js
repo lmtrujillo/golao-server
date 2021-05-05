@@ -1,3 +1,4 @@
+
 const temperatureSchema = {
     type: "object",
     properties: {
