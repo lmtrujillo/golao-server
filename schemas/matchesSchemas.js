@@ -166,3 +166,8 @@ export const matchSchema = {
         is_placeholder: {type: "boolean"}
     }
 }
+
+export const matchesSchema = {
+    type: "array",
+    items: matchSchema
+}

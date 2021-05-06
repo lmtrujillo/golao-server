@@ -19,8 +19,8 @@ export async function getVenue(venue_id) {
     return venue;
 }
 
-// GET VENUE FROM N SEASON
-export async function getVenueSeason(season_id) {
+// GET VENUES FROM N SEASON
+export async function getVenuesSeason(season_id) {
     var endpoint = process.env.API_URL + "venues/season/" + season_id + api_key_token;
     var venue = await fetch(endpoint)
         .then(response => response.json())

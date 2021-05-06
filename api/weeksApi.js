@@ -36,7 +36,7 @@ export async function getWeeksNSeason(season_id) {
     return weeks;
 }
 
-// GET ALL WEEKS FROM N LEAGUE
+// GET WEEKS FROM N LEAGUE
 export async function getWeeksFromNLeague(league_id) {
     var weeks = [];
 

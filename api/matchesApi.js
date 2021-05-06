@@ -5,7 +5,7 @@ import Ajv from 'ajv'
 const ajv = new Ajv()
 import { getSeasons } from './seasonsApi.js'
 import { getWeeksNSeason } from './weeksApi.js'
-import { matchSchema } from '../schemas/matchesSchemas.js'
+import { matchSchema, matchesSchema } from '../schemas/matchesSchemas.js'
 
 
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
@@ -26,12 +26,12 @@ export async function getMatch(match_id) {
 }
 
 // GET MATCHES FROM TIMEFRAME
-export async function getMatchTimeframe(start_date, end_date) {
+export async function getMatchesTimeframe(start_date, end_date) {
   var endpoint = process.env.API_URL + "fixtures/between/" + start_date + "/" + end_date + api_key_token;
   var matches = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(matchesSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;
@@ -51,21 +51,22 @@ export async function getMatchesFromNWeekLeague(n_week, league_id) {
     var n_round = rounds.find(x => (x.name === n_week));
     var round_start_date = n_round.start;
     var round_end_date = n_round.end;
-                            
-    return matches = await getMatchTimeframe(round_start_date, round_end_date);
+ 
+    matches = await getMatchesTimeframe(round_start_date, round_end_date);
+    return (ajv.validate(matchesSchema, matches) ? matches : ajv.errors)
 }
 
 // GET MATCHES FROM TIMEFRAME FOR TEAM
-export async function getMatchTimeframeTeam(start_date, end_date, team_id) {
+export async function getMatchesTimeframeTeam(start_date, end_date, team_id) {
     var endpoint = process.env.API_URL + "fixtures/between/" + start_date + "/" + end_date + "/" + team_id + api_key_token;
     var matches = await fetch(endpoint)
-          .then(response => response.json())
-          .then((res) => {
-              return res.data;
-          })
-          .catch((error) => {
-              return error;
-          });
+        .then(response => response.json())
+        .then((res) => {
+            return (ajv.validate(matchesSchema, res.data) ? res.data : ajv.errors);
+        })
+        .catch((error) => {
+            return error;
+        });
       
       return matches;
   }

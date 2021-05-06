@@ -37,7 +37,7 @@ export async function getTeamByName(team_name) {
 
 
 // GET TEAMS BY SEASON
-export async function getTeamBySeason(season_id) {
+export async function getTeamsBySeason(season_id) {
     var endpoint = process.env.API_URL + "teams/season/" + season_id + api_key_token;
     var teams = await fetch(endpoint)
         .then(response => response.json())
