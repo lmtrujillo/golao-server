@@ -1,5 +1,5 @@
 import { getLeagues, getLeague, getLeagueByName } from '../../api/leagueApi.js';
-import { getLeaguesExpected, getLeagueExpected, getLeagueByNameExpected } from './leagueData'
+import { getLeaguesExpected, getLeagueExpected, getLeagueByNameExpected } from './leaguesData.js'
 
 
 test('getLeagues endpoint', async () => {
