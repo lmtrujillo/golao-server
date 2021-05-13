@@ -1,6 +1,9 @@
 import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 dotenv.config()
+import Ajv from 'ajv'
+const ajv = new Ajv()
+import { oddsSchema } from '../schemas/oddsSchemas.js'
 
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
 
@@ -10,7 +13,7 @@ export async function getOddsFixtureBookmaker(fixture_id, bookmaker_id) {
     var odds = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(oddsSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;
@@ -25,7 +28,7 @@ export async function getOddsFixtureMarket(fixture_id, market_id) {
     var odds = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(oddsSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;
@@ -40,7 +43,7 @@ export async function getOddsFixture(fixture_id) {
     var odds = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(oddsSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;
@@ -55,7 +58,7 @@ export async function getInplayOddsFixture(fixture_id) {
     var odds = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(oddsSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;

@@ -2,7 +2,7 @@ import { getTeam } from './api/teamsApi.js'
 import { getLeague, getLeagues} from './api/leagueApi.js';
 import { getWeeksFromNLeague } from './api/weeksApi.js';
 import { getMatch, getMatchesFromNWeekLeague, getMatchesTimeframe, getMatchesTimeframeTeam } from './api/matchesApi.js';
-
+import { getOddsFixtureBookmaker, getOddsFixtureMarket, getOddsFixture, getInplayOddsFixture } from './api/oddsApi.js'
 
 // API TEST CALLS:
 
@@ -23,6 +23,10 @@ async function testing () {
 //    console.log(await getMatchesTimeframe('2020-09-19', '2020-09-21'));
 //    console.log(await getMatchesFromNWeekLeague(2, 271));
 // console.log(await getMatchesTimeframeTeam('2020-09-19', '2020-09-21', 939))
+// console.log(await getOddsFixtureBookmaker(16773965, 1))
+// console.log(await getOddsFixtureMarket(16773965, 1))
+// console.log(await getOddsFixture(16773965))
+//   console.log(await getInplayOddsFixture(11865351))
 
 }
 
