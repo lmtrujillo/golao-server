@@ -1,6 +1,10 @@
 import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 dotenv.config()
+import Ajv from 'ajv'
+const ajv = new Ajv()
+import { seasonSchema, seasonsSchema } from '../schemas/seasonsSchemas.js'
+
 
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
 
@@ -10,7 +14,7 @@ export async function getSeasons() {
     var seasons = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(seasonsSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;
@@ -25,7 +29,7 @@ export async function getSeason(season_id) {
     var season = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(seasonSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;

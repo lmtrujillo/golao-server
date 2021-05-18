@@ -3,6 +3,7 @@ import { getLeague, getLeagues} from './api/leagueApi.js';
 import { getWeeksFromNLeague } from './api/weeksApi.js';
 import { getMatch, getMatchesFromNWeekLeague, getMatchesTimeframe, getMatchesTimeframeTeam } from './api/matchesApi.js';
 import { getOddsFixtureBookmaker, getOddsFixtureMarket, getOddsFixture, getInplayOddsFixture } from './api/oddsApi.js'
+import { getSeason, getSeasons } from './api/seasonsApi.js'
 
 // API TEST CALLS:
 
@@ -27,7 +28,8 @@ async function testing () {
 // console.log(await getOddsFixtureMarket(16773965, 1))
 // console.log(await getOddsFixture(16773965))
 //   console.log(await getInplayOddsFixture(11865351))
-
+//   console.log(await getSeasons())
+//   console.log(await getSeason(15949))
 }
 
 testing();
