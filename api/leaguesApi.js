@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import Ajv from 'ajv'
 const ajv = new Ajv()
-import { leaguesSchema, leagueSchema } from '../schemas/leagueSchemas.js'
+import { leaguesSchema, leagueSchema } from '../schemas/leaguesSchemas.js'
 
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
 

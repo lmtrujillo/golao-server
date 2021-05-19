@@ -1,4 +1,4 @@
-import { getLeagues, getLeague, getLeagueByName } from '../../api/leagueApi.js';
+import { getLeagues, getLeague, getLeagueByName } from '../../api/leaguesApi.js';
 import { getLeaguesExpected, getLeagueExpected, getLeagueByNameExpected } from './leaguesData.js'
 
 
