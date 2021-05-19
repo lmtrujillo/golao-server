@@ -85,5 +85,3 @@ export async function getLeaguesByTeam(team_id) {
     
     return teams;
 }
-
-
