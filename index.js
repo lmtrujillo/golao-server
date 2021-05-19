@@ -4,6 +4,7 @@ import { getWeeksFromNLeague } from './api/weeksApi.js';
 import { getMatch, getMatchesFromNWeekLeague, getMatchesTimeframe, getMatchesTimeframeTeam } from './api/matchesApi.js';
 import { getOddsFixtureBookmaker, getOddsFixtureMarket, getOddsFixture, getInplayOddsFixture } from './api/oddsApi.js'
 import { getSeason, getSeasons } from './api/seasonsApi.js'
+import { getVenue, getVenuesSeason } from './api/venuesApi.js'
 
 // API TEST CALLS:
 
@@ -34,8 +35,10 @@ async function testing () {
 //   console.log(await getSeason(15949))
 //    const data = await getCurrentLeaguesByTeam(939);
 //    console.log(JSON.stringify(data));
-    const data = await getLeaguesByTeam(939);
-    console.log(JSON.stringify(data));
+//    const data = await getLeaguesByTeam(939);
+//    console.log(JSON.stringify(data));
+ //   console.log(await getVenue(1))
+    console.log(await getVenuesSeason(17328))
 
 }
 
