@@ -10,7 +10,8 @@ test('getMatch endpoint', async () => {
 
 test('getMatchesTimeframe endpoint', async () => {
     const data = await getMatchesTimeframe('2020-09-19', '2020-09-21');
-    expect(data).toStrictEqual(getMatchesTimeframeExpected);
+    expect(data.length).toEqual(12);
+    expect(data[0]).toStrictEqual(getMatchesTimeframeExpected);
 });
 
 test('getMatchesFromNWeekLeague endpoint', async () => {
