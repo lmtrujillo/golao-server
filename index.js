@@ -38,7 +38,7 @@ async function testing () {
 //    const data = await getLeaguesByTeam(939);
 //    console.log(JSON.stringify(data));
  //   console.log(await getVenue(1))
-    console.log(await getVenuesSeason(17328))
+  //  console.log(await getVenuesSeason(17328))
 
 }
 
