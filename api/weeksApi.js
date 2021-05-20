@@ -1,6 +1,9 @@
 import fetch from 'node-fetch'
 import dotenv from 'dotenv'
 dotenv.config()
+import Ajv from 'ajv'
+const ajv = new Ajv()
+import { weekSchema, weeksSchema } from '../schemas/weeksSchemas.js'
 import { getSeasons } from './seasonsApi.js'
 
 const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
@@ -11,7 +14,7 @@ export async function getWeek(week_id) {
     var week = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(weekSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;
@@ -27,7 +30,7 @@ export async function getWeeksNSeason(season_id) {
     var weeks = await fetch(endpoint)
         .then(response => response.json())
         .then((res) => {
-            return res.data;
+            return (ajv.validate(weeksSchema, res.data) ? res.data : ajv.errors);
         })
         .catch((error) => {
             return error;
@@ -43,6 +46,7 @@ export async function getWeeksFromNLeague(league_id) {
     var seasons = await getSeasons();
     var current_season_id = seasons.find(x => (x.is_current_season === true &&  x.league_id === league_id)).id
  
-    return weeks = await getWeeksNSeason(current_season_id);
+    var weeks = await getWeeksNSeason(current_season_id);
+    return (ajv.validate(weeksSchema, weeks) ? weeks : ajv.errors);
 
 }

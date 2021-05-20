@@ -1,20 +1,12 @@
 import { getTeam, getTeamByName, getTeamsBySeason, getCurrentLeaguesByTeam, getLeaguesByTeam } from './api/teamsApi.js'
 import { getLeague, getLeagues} from './api/leaguesApi.js';
-import { getWeeksFromNLeague } from './api/weeksApi.js';
+import { getWeek, getWeeksNSeason, getWeeksFromNLeague } from './api/weeksApi.js';
 import { getMatch, getMatchesFromNWeekLeague, getMatchesTimeframe, getMatchesTimeframeTeam } from './api/matchesApi.js';
 import { getOddsFixtureBookmaker, getOddsFixtureMarket, getOddsFixture, getInplayOddsFixture } from './api/oddsApi.js'
 import { getSeason, getSeasons } from './api/seasonsApi.js'
 import { getVenue, getVenuesSeason } from './api/venuesApi.js'
 
 // API TEST CALLS:
-
-//getLeagues();
-//getLeague(501);
-//getMatchesFromNWeekLeague(2, 271);
-//getWeeksFromNLeague(271);
-//getNWeek(199448);
-//getMatch(16773965);
-//getTeam(939);
 
 async function testing () {
 //  console.log(await getLeagues());
@@ -39,7 +31,8 @@ async function testing () {
 //    console.log(JSON.stringify(data));
  //   console.log(await getVenue(1))
   //  console.log(await getVenuesSeason(17328))
-
+//  console.log(await getWeek(194968))
+//  console.log(await getWeeksNSeason(17141))
 }
 
 testing();
