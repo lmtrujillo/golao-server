@@ -5,10 +5,14 @@ import { getMatch, getMatchesFromNWeekLeague, getMatchesTimeframe, getMatchesTim
 import { getOddsFixtureBookmaker, getOddsFixtureMarket, getOddsFixture, getInplayOddsFixture } from './api/oddsApi.js'
 import { getSeason, getSeasons } from './api/seasonsApi.js'
 import { getVenue, getVenuesSeason } from './api/venuesApi.js'
+import cron from 'node-cron';
+import shell from 'shelljs';
+
+
 
 // API TEST CALLS:
 
-async function testing () {
+//async function testing () {
 //  console.log(await getLeagues());
 //  console.log(await getTeam(939));
 //  console.log(await getTeamByName("Midtjylland"));
@@ -33,6 +37,11 @@ async function testing () {
   //  console.log(await getVenuesSeason(17328))
 //  console.log(await getWeek(194968))
 //  console.log(await getWeeksNSeason(17141))
-}
+//}
 
-testing();
+//testing();
+
+cron.schedule("* * * * * *", async function(){
+  console.log(await getTeam(939));
+  shell.exec
+})
