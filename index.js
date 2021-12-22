@@ -1,15 +1,17 @@
-import { getTeam, getTeamByName, getTeamsBySeason, getCurrentLeaguesByTeam, getLeaguesByTeam } from './api/teamsApi.js'
-import { getLeague, getLeagues} from './api/leaguesApi.js';
-import { getWeek, getWeeksNSeason, getWeeksFromNLeague } from './api/weeksApi.js';
-import { getMatch, getMatchesFromNWeekLeague, getMatchesTimeframe, getMatchesTimeframeTeam } from './api/matchesApi.js';
-import { getOddsFixtureBookmaker, getOddsFixtureMarket, getOddsFixture, getInplayOddsFixture } from './api/oddsApi.js'
-import { getSeason, getSeasons } from './api/seasonsApi.js'
-import { getVenue, getVenuesSeason } from './api/venuesApi.js'
+import { getTeam, getTeamByName, getTeamsBySeason, getCurrentLeaguesByTeam, getLeaguesByTeam } from './api/functions/teamsApi.ts'
+import { getLeague, getLeagues} from './api/functions/leaguesApi.ts';
+import { getWeek, getWeeksNSeason, getWeeksFromNLeague } from './api/functions/weeksApi.ts';
+import { getMatch, getMatchesFromNWeekLeague, getMatchesTimeframe, getMatchesTimeframeTeam } from './api/functions/matchesApi.ts';
+import { getOddsFixtureBookmaker, getOddsFixtureMarket, getOddsFixture, getInplayOddsFixture } from './api/functions/oddsApi.ts'
+import { getSeason, getSeasons } from './api/functions/seasonsApi.ts'
+import { getVenue, getVenuesSeason } from './api/functions/venuesApi.ts'
 import cron from 'node-cron';
 import shell from 'shelljs';
-
-
-
+import express from 'express';
+import { graphqlHTTP } from 'express-graphql';
+import { buildSchema, GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
+import { idText } from 'typescript';
+const app = express()
 // API TEST CALLS:
 
 //async function testing () {
@@ -41,7 +43,79 @@ import shell from 'shelljs';
 
 //testing();
 
+// SEASONS
+/*
+MUTATIONS FROM NODE TO GRAPHQL
+
+const UserType = new GraphQLObjectType({
+  name: "User",
+  fields: () => ({
+    user_id: {type: GraphQLInt},
+    display_name: {type: GraphQLString},
+    email: {type: GraphQLString},
+    email_verified: {type: GraphQLBoolean},
+    is_anonymous: {type: GraphQLBoolean},
+    phone_number: {type: GraphQLString},
+    photo_url: {type: GraphQLString},
+    provider_id: {type: GraphQLString},
+    refresh_token: {type: GraphQLString},
+    tenant_id: {type: GraphQLString},
+    uid: {type: GraphQLString},
+    username: {type: GraphQLString},
+  })
+})
+
+const RootQuery = new GraphQLObjectType({
+  name: "RootQueryType",
+  fields: {
+    getAllUsers: {
+      type: new GraphQLList(UserType),
+      args: { id: { type: GraphQLInt}},
+      resolve(parent, args) {
+        return userData
+      }
+    }
+  }
+})
+
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    createUser: {
+      type: UserType,
+      args: {
+        user_id: {type: GraphQLInt},
+        display_name: {type: GraphQLString},
+        email: {type: GraphQLString},
+        email_verified: {type: GraphQLBoolean},
+        is_anonymous: {type: GraphQLBoolean},
+        phone_number: {type: GraphQLString},
+        photo_url: {type: GraphQLString},
+        provider_id: {type: GraphQLString},
+        refresh_token: {type: GraphQLString},
+        tenant_id: {type: GraphQLString},
+        uid: {type: GraphQLString},
+        username: {type: GraphQLString},
+      },
+      resolve(parent, args) {
+
+      }
+    }
+  }
+})
+
+const schema = new GraphQLSchema({query: RootQuery, mutation: Mutation});
+
+
+app.use('/graphql/user', graphqlHTTP({
+  schema,
+  graphiql: true
+}))
+
+
+
 cron.schedule("* * * * * *", async function(){
-  console.log(await getTeam(939));
+  console.log(await getLeagues());
   shell.exec
 })
+*/
