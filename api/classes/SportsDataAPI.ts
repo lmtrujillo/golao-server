@@ -1,10 +1,10 @@
-abstract class SportsDataAPI {   
+export abstract class SportsDataAPI {   
 
-    abstract getResults();
+    abstract getResults(): any;
 
-    abstract callEndpointWithLatestGamesUpdates();
+    abstract callEndpointWithLatestGamesUpdates(): any;
 
-    abstract processLatestGameUpdatesResponse();
+    abstract processLatestGameUpdatesResponse(): any;
 
 }
    

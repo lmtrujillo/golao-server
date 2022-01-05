@@ -2,8 +2,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 import Ajv from 'ajv'
 const ajv = new Ajv()
-const api_key_token = process.env.API_TOKEN_PARAM + process.env.API_KEY;
-import { matchesSchema, matchSchema } from '../../schemas/matchesSchemas';
+const fetch = require('node-fetch');
+const api_key_token = process.env.API_TOKEN_PARAM! + process.env.API_KEY!;
+import { matchesSchema } from '../../schemas/matchesSchemas';
+import { SportsDataAPI } from '../classes/SportsDataAPI';
 
 
 export class SportsMonk extends SportsDataAPI {
@@ -14,26 +16,26 @@ export class SportsMonk extends SportsDataAPI {
     }
 
     async getResults() {
-        var endpoint = process.env.API_URL + "fixtures/updates" + api_key_token;
+        var endpoint = process.env.API_URL! + "fixtures/updates" + api_key_token;
         var rawData = {};
-        var match = await fetch(endpoint)
-        .then(response => response.json())
-        .then((res) => {
+        var match = await fetch(endpoint, {method: 'GET'})
+        .then((response: any) => response.json())
+        .then((res: any) => {
             rawData = res.data;
-            this.processAPIMatchResults(rawData);
+            return this.processAPIMatchResults(rawData);
         })
-        .catch((error) => {
+        .catch((error: any) => {
             return error;
         });
 
         return match;
     }
 
-    async processAPIMatchResults(rawData) {
+    async processAPIMatchResults(rawData: any) {
         return (ajv.validate(matchesSchema, rawData) ? rawData : ajv.errors);
     }
 
-    async storeMatchesInfo(processedMatchesData) {
+    async storeMatchesInfo(processedMatchesData: any) {
         /* 
         Store date in hasura
         */

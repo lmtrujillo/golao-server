@@ -1,17 +1,6 @@
-import { getTeam, getTeamByName, getTeamsBySeason, getCurrentLeaguesByTeam, getLeaguesByTeam } from './api/functions/teamsApi.ts'
-import { getLeague, getLeagues} from './api/functions/leaguesApi.ts';
-import { getWeek, getWeeksNSeason, getWeeksFromNLeague } from './api/functions/weeksApi.ts';
-import { getMatch, getMatchesFromNWeekLeague, getMatchesTimeframe, getMatchesTimeframeTeam } from './api/functions/matchesApi.ts';
-import { getOddsFixtureBookmaker, getOddsFixtureMarket, getOddsFixture, getInplayOddsFixture } from './api/functions/oddsApi.ts'
-import { getSeason, getSeasons } from './api/functions/seasonsApi.ts'
-import { getVenue, getVenuesSeason } from './api/functions/venuesApi.ts'
-import cron from 'node-cron';
-import shell from 'shelljs';
-import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema, GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
-import { idText } from 'typescript';
-const app = express()
+import { SportsMonk } from './api/classes/SportsMonk';
 // API TEST CALLS:
 
 //async function testing () {
@@ -119,3 +108,6 @@ cron.schedule("* * * * * *", async function(){
   shell.exec
 })
 */
+
+var sM =  new SportsMonk();
+console.log(sM.getResults());

@@ -167,7 +167,7 @@ export const matchSchema = {
     }
 }
 
-export const matchesSchema = {
+export const matchesSchema: any = {
     type: "array",
     items: matchSchema
 }
