@@ -108,6 +108,17 @@ cron.schedule("* * * * * *", async function(){
   shell.exec
 })
 */
+type matchInfo = {
+  id: number;
+  home_team_id: number;
+  away_team_id: number;
+  home_team_goals: number;
+  away_team_goals: number;
+}
 
-var sM =  new SportsMonk();
-console.log(sM.getResults());
+let sm =  new SportsMonk();
+/*
+const results: [matchInfo] = ( async () => {
+  await sm.getResults();
+})()
+*/

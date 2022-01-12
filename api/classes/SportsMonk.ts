@@ -7,15 +7,19 @@ const api_key_token = process.env.API_TOKEN_PARAM! + process.env.API_KEY!;
 import { matchesSchema } from '../../schemas/matchesSchemas';
 import { SportsDataAPI } from '../classes/SportsDataAPI';
 
+type matchInfo = {
+    id: number;
+    home_team_id: number;
+    away_team_id: number;
+    home_team_goals: number;
+    away_team_goals: number;
+ }
+
 
 export class SportsMonk extends SportsDataAPI {
     
-    async updateMatchResults() {
-        var processedData = this.getResults();
-        this.storeMatchesInfo(processedData);
-    }
 
-    async getResults() {
+    async getResults(): Promise<[matchInfo]> {
         var endpoint = process.env.API_URL! + "fixtures/updates" + api_key_token;
         var rawData = {};
         var match = await fetch(endpoint, {method: 'GET'})
@@ -33,13 +37,6 @@ export class SportsMonk extends SportsDataAPI {
 
     async processAPIMatchResults(rawData: any) {
         return (ajv.validate(matchesSchema, rawData) ? rawData : ajv.errors);
-    }
-
-    async storeMatchesInfo(processedMatchesData: any) {
-        /* 
-        Store date in hasura
-        */
-
     }
 
     callEndpointWithLatestGamesUpdates() {}
