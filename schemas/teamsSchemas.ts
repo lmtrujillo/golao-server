@@ -1,4 +1,4 @@
-export const teamSchema = {
+export const teamSchema: any = {
     title: "Data",
     description: "Data season schema",
     type: "object",
@@ -17,7 +17,7 @@ export const teamSchema = {
     }
 }
 
-export const teamBySeasonSchema = {
+export const teamBySeasonSchema: any = {
     title: "Data",
     description: "Data season schema",
     type: "object",
@@ -37,17 +37,17 @@ export const teamBySeasonSchema = {
     }
 }
 
-export const teamsSchema = {
+export const teamsSchema: any = {
     type: "array",
     items: teamSchema
 }
 
-export const teamsBySeasonSchema = {
+export const teamsBySeasonSchema: any = {
     type: "array",
     items: teamBySeasonSchema
 }
 
-export const coverageSchema = {
+export const coverageSchema: any = {
     title: "Data",
     description: "Data leagues by team schema",
     type: "object",
@@ -59,7 +59,7 @@ export const coverageSchema = {
     }
 }
 
-export const leagueByTeamDataSchema = {
+export const leagueByTeamDataSchema: any = {
     title: "Data",
     description: "Data leagues by team schema",
     type: "object",
@@ -80,7 +80,7 @@ export const leagueByTeamDataSchema = {
     }
 }
 
-export const leagueByTeamSchema = {
+export const leagueByTeamSchema: any = {
     title: "Data",
     description: "Data leagues by team schema",
     type: "object",
@@ -89,7 +89,7 @@ export const leagueByTeamSchema = {
     }
 }
 
-export const leaguesByTeamSchema = {
+export const leaguesByTeamSchema: any = {
     title: "Data",
     description: "Data leagues by team schema",
     type: "object",
@@ -104,7 +104,7 @@ export const leaguesByTeamSchema = {
     }
 }
 
-export const leaguesByTeamDataSchema = {
+export const leaguesByTeamDataSchema: any = {
     type: "array",
     items: leaguesByTeamSchema
 }

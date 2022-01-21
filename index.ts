@@ -1,6 +1,9 @@
 import { graphqlHTTP } from 'express-graphql';
-import { buildSchema, GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
+import { buildSchema, graphql, GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
 import { SportsMonk } from './api/classes/SportsMonk';
+import { getTeam } from './api/functions/teamsApi'
+const fetch = require('node-fetch');
+
 // API TEST CALLS:
 
 //async function testing () {
@@ -108,6 +111,8 @@ cron.schedule("* * * * * *", async function(){
   shell.exec
 })
 */
+
+/*
 type matchInfo = {
   id: number;
   home_team_id: number;
@@ -117,8 +122,49 @@ type matchInfo = {
 }
 
 let sm =  new SportsMonk();
-/*
+
 const results: [matchInfo] = ( async () => {
   await sm.getResults();
 })()
 */
+
+
+
+(async () => {
+  await console.log(getTeam(939));
+})();
+
+
+
+/*
+
+
+fetch('https://golao-api.hasura.app/v1/graphql', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-hasura-admin-secret': 'gaEQRECn1HLz5Gho6uMrC3He0a9ioof87djKHZ0TaHBs9conVi6JPeNgaMfw0py3'
+  },
+  body: JSON.stringify({
+    query: `
+    mutation updateTeams($objects: [team_insert_input!]!) {
+      insert_team(on_conflict: {constraint: team_team_id_sports_monk_key, update_columns: [team_name, venue, venue_url]}, objects: $objects) {
+        affected_rows
+      }
+    }
+    
+      `,
+      variables: {
+        objects: [
+          {logo_url: "www.test.com", team_name: "Test 51", venue: "Test stadium 1", venue_url: "www.venue.com", team_id_sports_monk: 51}, 
+          {logo_url: "www.test2.com", team_name: "Test 52", venue: "Test stadium 2", venue_url: "www.venue2.com", team_id_sports_monk: 52}, 
+          {logo_url: "www.test3.com", team_name: "Test 53", venue: "Test stadium 3", venue_url: "www.venue3.com", team_id_sports_monk: 53}
+        ]
+      }
+  }),
+})
+  .then((res: any) => res.json())
+  .then((result: any) => console.log(result));
+
+
+  */
