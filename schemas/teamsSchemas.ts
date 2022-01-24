@@ -37,6 +37,26 @@ export const teamBySeasonSchema: any = {
     }
 }
 
+export const teamByCountrySchema: any = {
+    title: "Data",
+    description: "Data country schema",
+    type: "object",
+    properties: {
+        id: {type: "integer"},
+        legacy_id: {type: "integer", "nullable": true},
+        name: {type: "string"},
+        short_code: {type: "string", "nullable": true},
+        twitter: {type: "string", "nullable": true},
+        country_id: {type: "integer"},
+        national_team: {type: "boolean"},
+        founded: {type: "integer"},
+        logo_path: {type: "string"},
+        venue_id: {type: "integer"},
+        current_season_id: {type: "integer", "nullable": true},
+        is_placeholder: {type: "boolean"},
+    }
+}
+
 export const teamsSchema: any = {
     type: "array",
     items: teamSchema
@@ -45,6 +65,11 @@ export const teamsSchema: any = {
 export const teamsBySeasonSchema: any = {
     type: "array",
     items: teamBySeasonSchema
+}
+
+export const teamsByCountrySchema: any = {
+    type: "array",
+    items: teamByCountrySchema
 }
 
 export const coverageSchema: any = {

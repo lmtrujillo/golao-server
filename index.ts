@@ -1,7 +1,7 @@
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema, graphql, GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
 import { SportsMonk } from './api/classes/SportsMonk';
-import { getTeam } from './api/functions/teamsApi'
+import { getTeam, getTeamsByCountry } from './api/functions/teamsApi'
 const fetch = require('node-fetch');
 
 // API TEST CALLS:
@@ -131,12 +131,26 @@ const results: [matchInfo] = ( async () => {
 
 
 (async () => {
-  await console.log(getTeam(939));
-})();
+  var teams = await getTeamsByCountry(320);
+  var teams_final: any[] = [];
+  teams.forEach((team: any) => {
+    var object = {
+      logo_url: "",
+      team_name: "", 
+      venue: "", 
+      venue_url: "", 
+      team_id_sports_monk: 0
+    };
+
+    object.team_name = team.name;
+    object.logo_url = team.logo_path;
+    // object.venue = team.venue_id;
+    object.team_id_sports_monk = team.id;
+
+    teams_final.push(object);
+  });
 
 
-
-/*
 
 
 fetch('https://golao-api.hasura.app/v1/graphql', {
@@ -155,16 +169,15 @@ fetch('https://golao-api.hasura.app/v1/graphql', {
     
       `,
       variables: {
-        objects: [
-          {logo_url: "www.test.com", team_name: "Test 51", venue: "Test stadium 1", venue_url: "www.venue.com", team_id_sports_monk: 51}, 
-          {logo_url: "www.test2.com", team_name: "Test 52", venue: "Test stadium 2", venue_url: "www.venue2.com", team_id_sports_monk: 52}, 
-          {logo_url: "www.test3.com", team_name: "Test 53", venue: "Test stadium 3", venue_url: "www.venue3.com", team_id_sports_monk: 53}
-        ]
+        objects: teams_final
       }
   }),
 })
   .then((res: any) => res.json())
   .then((result: any) => console.log(result));
 
+})();
 
-  */
+
+
+
