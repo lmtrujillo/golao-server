@@ -2,6 +2,8 @@ import { graphqlHTTP } from 'express-graphql';
 import { buildSchema, graphql, GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
 import { SportsMonk } from './api/classes/SportsMonk';
 import { getTeam, getTeamsByCountry } from './api/functions/teamsApi'
+import { getVenue } from './api/functions/venuesApi'
+
 const fetch = require('node-fetch');
 
 // API TEST CALLS:
@@ -132,8 +134,9 @@ const results: [matchInfo] = ( async () => {
 
 (async () => {
   var teams = await getTeamsByCountry(320);
+
   var teams_final: any[] = [];
-  teams.forEach((team: any) => {
+  teams.forEach(async (team: any) => {
     var object = {
       logo_url: "",
       team_name: "", 
@@ -142,10 +145,15 @@ const results: [matchInfo] = ( async () => {
       team_id_sports_monk: 0
     };
 
+    var venue = await getVenue(team.venue_id);
+    
     object.team_name = team.name;
     object.logo_url = team.logo_path;
-    // object.venue = team.venue_id;
+    object.venue = venue.name;
+    object.venue_url = venue.image_path;
     object.team_id_sports_monk = team.id;
+
+    console.log(object);
 
     teams_final.push(object);
   });
@@ -166,7 +174,6 @@ fetch('https://golao-api.hasura.app/v1/graphql', {
         affected_rows
       }
     }
-    
       `,
       variables: {
         objects: teams_final
