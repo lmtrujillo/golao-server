@@ -1,4 +1,4 @@
-export const venueSchema = {
+export const venueSchema: any = {
     title: "Data",
     description: "Data venue schema",
     type: "object",
@@ -14,7 +14,7 @@ export const venueSchema = {
     }
 }
 
-export const venuesSchema = {
+export const venuesSchema: any = {
     type: "array",
     items: venueSchema
 }
