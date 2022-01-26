@@ -1,10 +1,19 @@
-import { graphqlHTTP } from 'express-graphql';
-import { buildSchema, graphql, GraphQLBoolean, GraphQLInt, GraphQLList, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
-import { SportsMonk } from './api/classes/SportsMonk';
-import { getTeam, getTeamsByCountry } from './api/functions/teamsApi'
-import { getVenue } from './api/functions/venuesApi'
+import { graphqlHTTP } from "express-graphql";
+import {
+  buildSchema,
+  graphql,
+  GraphQLBoolean,
+  GraphQLInt,
+  GraphQLList,
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLString,
+} from "graphql";
+import { SportsMonk } from "./api/classes/SportsMonk";
+import { getTeam, getTeamsByCountry } from "./api/functions/teamsApi";
+import { getVenue } from "./api/functions/venuesApi";
 
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 
 // API TEST CALLS:
 
@@ -29,8 +38,8 @@ const fetch = require('node-fetch');
 //    console.log(JSON.stringify(data));
 //    const data = await getLeaguesByTeam(939);
 //    console.log(JSON.stringify(data));
- //   console.log(await getVenue(1))
-  //  console.log(await getVenuesSeason(17328))
+//   console.log(await getVenue(1))
+//  console.log(await getVenuesSeason(17328))
 //  console.log(await getWeek(194968))
 //  console.log(await getWeeksNSeason(17141))
 //}
@@ -129,62 +138,3 @@ const results: [matchInfo] = ( async () => {
   await sm.getResults();
 })()
 */
-
-
-
-(async () => {
-  var teams = await getTeamsByCountry(320);
-
-  var teams_final: any[] = [];
-  teams.forEach(async (team: any) => {
-    var object = {
-      logo_url: "",
-      team_name: "", 
-      venue: "", 
-      venue_url: "", 
-      team_id_sports_monk: 0
-    };
-
-    var venue = await getVenue(team.venue_id);
-    
-    object.team_name = team.name;
-    object.logo_url = team.logo_path;
-    object.venue = venue.name;
-    object.venue_url = venue.image_path;
-    object.team_id_sports_monk = team.id;
-
-    console.log(object);
-
-    teams_final.push(object);
-  });
-
-
-
-
-fetch('https://golao-api.hasura.app/v1/graphql', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'x-hasura-admin-secret': 'gaEQRECn1HLz5Gho6uMrC3He0a9ioof87djKHZ0TaHBs9conVi6JPeNgaMfw0py3'
-  },
-  body: JSON.stringify({
-    query: `
-    mutation updateTeams($objects: [team_insert_input!]!) {
-      insert_team(on_conflict: {constraint: team_team_id_sports_monk_key, update_columns: [team_name, venue, venue_url]}, objects: $objects) {
-        affected_rows
-      }
-    }
-      `,
-      variables: {
-        objects: teams_final
-      }
-  }),
-})
-  .then((res: any) => res.json())
-  .then((result: any) => console.log(result));
-
-})();
-
-
-
-
