@@ -11,13 +11,13 @@ const getTeamsData = async (country_id: number): Promise<TTeamData[]> => {
 
   const teams_data: TTeamData[] = await Promise.all(
     teams_raw_data.map(async (team: TTeamDataRaw): Promise<TTeamData> => {
-      const venue = await getVenue(team.venue_id);
+      const venue = await getVenue(team.venue_id!);
 
       return {
         team_name: team.name,
         logo_url: team.logo_path,
-        venue: venue.name,
-        venue_url: venue.image_path,
+        venue: venue!.name || "",
+        venue_url: venue!.image_path || "",
         team_id_sports_monk: team.id,
       };
     })
@@ -51,7 +51,7 @@ const storeTeamsData = async (teams_data: TTeamData[]): Promise<void> => {
 };
 
 (async () => {
-  const teams_data: TTeamData[] = await getTeamsData(320);
+  const teams_data: TTeamData[] = await getTeamsData(1161);
 
   storeTeamsData(teams_data);
 })();
