@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import Ajv from "ajv";
 const ajv = new Ajv();
-import { getSeasons } from "./seasonsApi.js";
-import { getWeeksNSeason } from "./weeksApi.js";
+import { getSeasons } from "./seasonsApi";
+import { getWeeksNSeason } from "./weeksApi";
 import { matchSchema, matchesSchema } from "../../schemas/matchesSchemas";
 
 const api_key_token = process.env.API_TOKEN_PARAM! + process.env.API_KEY!;
@@ -58,11 +58,11 @@ export async function getMatchesFromNWeekLeague(
 
   var seasons = await getSeasons();
   var current_season_id = seasons.find(
-    (x) => x.is_current_season === true && x.league_id === league_id
+    (x: any) => x.is_current_season === true && x.league_id === league_id
   ).id;
 
   var rounds = await getWeeksNSeason(current_season_id);
-  var n_round = rounds.find((x) => x.name === n_week);
+  var n_round = rounds.find((x: any) => x.name === n_week);
   var round_start_date = n_round.start;
   var round_end_date = n_round.end;
 
@@ -71,7 +71,11 @@ export async function getMatchesFromNWeekLeague(
 }
 
 // GET MATCHES FROM TIMEFRAME FOR TEAM
-export async function getMatchesTimeframeTeam(start_date, end_date, team_id) {
+export async function getMatchesTimeframeTeam(
+  start_date: any,
+  end_date: any,
+  team_id: any
+): Promise<any> {
   var endpoint =
     process.env.API_URL! +
     "fixtures/between/" +
