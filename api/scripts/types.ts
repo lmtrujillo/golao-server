@@ -153,3 +153,20 @@ type coordinatesSchema = {
   lat: number;
   long: number;
 };
+export type TWeekData = {
+  soccer_league_id: number;
+  week_number: number;
+  week_start_timestamp: string;
+  week_end_timestamp: string;
+  week_id_sports_monk: number;
+};
+
+export type TWeekDataRaw = {
+  id: number;
+  name: number;
+  league_id: number;
+  season_id: number;
+  stage_id: number;
+  start: string;
+  end: string;
+};
