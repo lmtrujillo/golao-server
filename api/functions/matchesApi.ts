@@ -51,8 +51,8 @@ export async function getMatchesTimeframe(
 
 // GET MATCHES FROM N LEAGUE & N WEEK
 export async function getMatchesFromNWeekLeague(
-  n_week: any,
-  league_id: any
+  n_week: number,
+  league_id: number
 ): Promise<any> {
   var matches = [];
 

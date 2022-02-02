@@ -1,4 +1,4 @@
-import { getMatchesTimeframeTeam } from "../functions/matchesApi";
+import { getMatchesFromNWeekLeague } from "../functions/matchesApi";
 import { TMatchDataRaw, TMatchData } from "./types";
 import dotenv from "dotenv";
 dotenv.config();
@@ -6,15 +6,11 @@ dotenv.config();
 const fetch = require("node-fetch");
 
 const getMatchesData = async (
-  start_date: string,
-  end_date: string,
-  team_id: number
+  n_week: number,
+  league_id: number
 ): Promise<TMatchData[]> => {
-  const matches_raw_data = await getMatchesTimeframeTeam(
-    start_date,
-    end_date,
-    team_id
-  );
+  const matches_raw_data = await getMatchesFromNWeekLeague(n_week, league_id);
+  console.log(matches_raw_data);
 
   const matches_data: TMatchData[] = await Promise.all(
     matches_raw_data.map(async (match: TMatchDataRaw): Promise<TMatchData> => {
@@ -74,11 +70,7 @@ const storeTeamsData = async (matches_data: any): Promise<void> => {
 };
 
 (async () => {
-  const teams_data: TMatchData[] = await getMatchesData(
-    "2020-09-19",
-    "2020-09-21",
-    939
-  );
+  const matches_data: TMatchData[] = await getMatchesData(2, 271);
 
-  storeTeamsData(teams_data);
+  storeTeamsData(matches_data);
 })();
