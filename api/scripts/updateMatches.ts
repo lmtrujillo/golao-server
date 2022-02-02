@@ -18,21 +18,20 @@ const getMatchesData = async (
 
   const matches_data: TMatchData[] = await Promise.all(
     matches_raw_data.map(async (match: TMatchDataRaw): Promise<TMatchData> => {
-      // const venue = await getVenue(team.venue_id);
-
       return {
-        week_id: 1,
-        time_status: "TEST 1",
-        starting_date_time: "2000-01-01T00:00:00",
-        minute: 1,
-        second: 1,
-        home_team_id: 1,
-        away_team_id: 2,
-        winner_team_id: 1,
-        soccer_league_id: 2,
-        home_team_score: 0,
-        away_team_score: 0,
-        match_id_sports_monk: 1,
+        week_id: match.round_id,
+        time_status: match.time.status,
+        starting_date_time:
+          match.time.starting_at.date! + "T" + match.time.starting_at.time!,
+        minute: match.time.minute || 0,
+        second: match.time.second || 0,
+        home_team_id: match.localteam_id,
+        away_team_id: match.visitorteam_id,
+        winner_team_id: match.winner_team_id,
+        soccer_league_id: match.league_id,
+        home_team_score: match.scores.localteam_score,
+        away_team_score: match.scores.visitorteam_score,
+        match_id_sports_monk: match.id,
       };
     })
   );
