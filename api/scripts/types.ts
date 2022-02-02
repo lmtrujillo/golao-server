@@ -170,3 +170,36 @@ export type TWeekDataRaw = {
   start: string;
   end: string;
 };
+
+export type TLeagueData = {
+  active: boolean;
+  current_season_id: string;
+  logo_url: string;
+  total_number_of_weeks: number;
+  current_week_number: number;
+  name: string;
+  soccer_league_sports_monk_id: number;
+};
+
+export type TLeagueDataRaw = {
+  id: number;
+  active: boolean;
+  type: string;
+  legacy_id: number;
+  country_id: number;
+  logo_path: string;
+  name: string;
+  is_cup: boolean;
+  current_season_id: number;
+  current_round_id: number;
+  current_stage_id: number;
+  live_standings: boolean;
+  coverage: TCoverage;
+};
+
+type TCoverage = {
+  predictions: boolean;
+  topscorer_goals: boolean;
+  topscorer_assists: boolean;
+  topscorer_cards: boolean;
+};
