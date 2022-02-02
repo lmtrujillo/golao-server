@@ -58,7 +58,7 @@ const storeSoccerLeaguesData = async (
 };
 
 (async () => {
-  const soccer_team_data: TLeagueData = await getSoccerLeaguesData(1659);
+  const soccer_team_data: TLeagueData = await getSoccerLeaguesData(501);
 
   storeSoccerLeaguesData(soccer_team_data);
 })();

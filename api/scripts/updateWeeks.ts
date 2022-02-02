@@ -55,7 +55,7 @@ const storeWeeksData = async (weeks_data: TWeekData[]): Promise<void> => {
 };
 
 (async () => {
-  const weeks_data: TWeekData[] = await getWeeksData(271);
+  const weeks_data: TWeekData[] = await getWeeksData(501);
 
   storeWeeksData(weeks_data);
 })();

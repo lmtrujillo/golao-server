@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 import dotenv from "dotenv";
 dotenv.config();
 import Ajv from "ajv";
-const ajv = new Ajv();
+const ajv = new Ajv({ strict: false });
 import { getSeasons } from "./seasonsApi";
 import { getWeeksNSeason } from "./weeksApi";
 import { matchSchema, matchesSchema } from "../../schemas/matchesSchemas";

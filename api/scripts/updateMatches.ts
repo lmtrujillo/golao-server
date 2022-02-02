@@ -10,7 +10,6 @@ const getMatchesData = async (
   league_id: number
 ): Promise<TMatchData[]> => {
   const matches_raw_data = await getMatchesFromNWeekLeague(n_week, league_id);
-  console.log(matches_raw_data);
 
   const matches_data: TMatchData[] = await Promise.all(
     matches_raw_data.map(async (match: TMatchDataRaw): Promise<TMatchData> => {
@@ -70,7 +69,7 @@ const storeTeamsData = async (matches_data: any): Promise<void> => {
 };
 
 (async () => {
-  const matches_data: TMatchData[] = await getMatchesData(2, 271);
+  const matches_data: TMatchData[] = await getMatchesData(27, 501);
 
   storeTeamsData(matches_data);
 })();
