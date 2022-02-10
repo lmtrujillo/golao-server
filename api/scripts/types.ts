@@ -176,9 +176,21 @@ export type TLeagueData = {
   current_season_id: string;
   logo_url: string;
   total_number_of_weeks: number;
-  current_week_number: number;
+  current_week_id: number | null;
   name: string;
   soccer_league_sports_monk_id: number;
+};
+
+export type TLeagueWithWeekObjectData = {
+  active: boolean;
+  current_season_id: string;
+  logo_url: string;
+  total_number_of_weeks: number;
+  current_week_id: number | null;
+  name: string;
+  soccer_league_sports_monk_id: number;
+  current_week: TWeekData | null;
+  soccer_league_id: number;
 };
 
 export type TLeagueDataRaw = {
@@ -202,4 +214,40 @@ type TCoverage = {
   topscorer_goals: boolean;
   topscorer_assists: boolean;
   topscorer_cards: boolean;
+};
+
+export type TLastManLeagueData = {
+  active: boolean;
+  award: number | null;
+  description: string | null;
+  entrance_fee: string | null;
+  is_public: boolean;
+  last_week: number;
+  lives_allowed: number;
+  lm_league_id: number;
+  logo_url: string;
+  name: string;
+  number_of_participants: number;
+  number_of_weeks: number;
+  revives_allowed: number;
+  share_url: string;
+  soccer_league_id: number;
+  start_week: number;
+};
+
+export type TPickData = {
+  lm_league_id: number;
+  pick_id: number;
+  team_id: number;
+  user_id: number;
+  week_id: number;
+  won_pick: boolean | null;
+};
+
+export type TMatchWinnerData = {
+  winner_team_id: number | null;
+};
+
+export type TLivesData = {
+  lives: number | null;
 };

@@ -5,6 +5,90 @@ dotenv.config();
 
 const fetch = require("node-fetch");
 
+const fromSportsMonkToGolaoDatabaseWeekId = async (
+  week_id_sports_monk: number
+): Promise<number> => {
+  return fetch("https://golao-api.hasura.app/v1/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+    },
+    body: JSON.stringify({
+      query: `
+      query getWeekId ($week_id_sports_monk: Int!) {
+        week(where: {week_id_sports_monk: {_eq: $week_id_sports_monk}}) {
+          week_id
+        }
+      }
+        `,
+      variables: {
+        week_id_sports_monk: week_id_sports_monk,
+      },
+    }),
+  })
+    .then((res: any) => res.json())
+    .then((result: any) => {
+      return result.data?.week[0]!.week_id!;
+    });
+};
+
+const fromSportsMonkToGolaoDatabaseTeamId = async (
+  team_id_sports_monk: number
+): Promise<number> => {
+  return fetch("https://golao-api.hasura.app/v1/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+    },
+    body: JSON.stringify({
+      query: `
+      query getWeekId ($week_id_sports_monk: Int!) {
+        team(where: {team_id_sports_monk: {_eq: $week_id_sports_monk}}) {
+          team_id
+        }
+      }
+        `,
+      variables: {
+        week_id_sports_monk: team_id_sports_monk,
+      },
+    }),
+  })
+    .then((res: any) => res.json())
+    .then((result: any) => {
+      return result.data?.team[0]!.team_id!;
+    });
+};
+
+const fromSportsMonkToGolaoDatabaseSoccerLeagueId = async (
+  soccer_league_id_sports_monk: number
+): Promise<number> => {
+  return fetch("https://golao-api.hasura.app/v1/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+    },
+    body: JSON.stringify({
+      query: `
+      query getSoccerLeagueId ($soccer_league_id_sports_monk: Int!) {
+        soccer_league(where: {soccer_league_sports_monk_id: {_eq: $soccer_league_id_sports_monk}}) {
+          soccer_league_id
+        }
+      }
+        `,
+      variables: {
+        soccer_league_id_sports_monk: soccer_league_id_sports_monk,
+      },
+    }),
+  })
+    .then((res: any) => res.json())
+    .then((result: any) => {
+      return result.data?.soccer_league[0]!.soccer_league_id!;
+    });
+};
+
 const getMatchesData = async (
   n_week: number,
   league_id: number
@@ -14,16 +98,24 @@ const getMatchesData = async (
   const matches_data: TMatchData[] = await Promise.all(
     matches_raw_data.map(async (match: TMatchDataRaw): Promise<TMatchData> => {
       return {
-        week_id: match.round_id,
+        week_id: await fromSportsMonkToGolaoDatabaseWeekId(match.round_id),
         time_status: match.time.status,
         starting_date_time:
           match.time.starting_at.date! + "T" + match.time.starting_at.time!,
         minute: match.time.minute || 0,
         second: match.time.second || 0,
-        home_team_id: match.localteam_id,
-        away_team_id: match.visitorteam_id,
-        winner_team_id: match.winner_team_id,
-        soccer_league_id: match.league_id,
+        home_team_id: await fromSportsMonkToGolaoDatabaseTeamId(
+          match.localteam_id
+        ),
+        away_team_id: await fromSportsMonkToGolaoDatabaseTeamId(
+          match.visitorteam_id
+        ),
+        winner_team_id: await fromSportsMonkToGolaoDatabaseTeamId(
+          match.winner_team_id
+        ),
+        soccer_league_id: await fromSportsMonkToGolaoDatabaseSoccerLeagueId(
+          match.league_id
+        ),
         home_team_score: match.scores.localteam_score,
         away_team_score: match.scores.visitorteam_score,
         match_id_sports_monk: match.id,

@@ -5,6 +5,34 @@ dotenv.config();
 
 const fetch = require("node-fetch");
 
+const fromSportsMonkToGolaoDatabaseWeekId = async (
+  week_id_sports_monk: number
+): Promise<number> => {
+  return fetch("https://golao-api.hasura.app/v1/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+    },
+    body: JSON.stringify({
+      query: `
+          query getWeekId ($week_id_sports_monk: Int!) {
+            week(where: {week_id_sports_monk: {_eq: $week_id_sports_monk}}) {
+              week_id
+            }
+          }
+            `,
+      variables: {
+        week_id_sports_monk: week_id_sports_monk,
+      },
+    }),
+  })
+    .then((res: any) => res.json())
+    .then((result: any) => {
+      return result.data?.week[0]!.week_id!;
+    });
+};
+
 const getSoccerLeaguesData = async (
   league_id: number
 ): Promise<TLeagueData> => {
@@ -15,7 +43,10 @@ const getSoccerLeaguesData = async (
     current_season_id: league_raw_data.current_season_id!.toString(),
     logo_url: league_raw_data.logo_path,
     total_number_of_weeks: 20,
-    current_week_number: league_raw_data.current_round_id! || 0,
+    current_week_id:
+      (await fromSportsMonkToGolaoDatabaseWeekId(
+        league_raw_data.current_round_id!
+      )) || null,
     name: league_raw_data.name,
     soccer_league_sports_monk_id: league_raw_data.id,
   };
@@ -39,7 +70,7 @@ const storeSoccerLeaguesData = async (
                 current_season_id,
                 logo_url,
                 total_number_of_weeks,
-                current_week_number,
+                current_week_id,
                 name,
                 soccer_league_sports_monk_id,
             ]
@@ -58,7 +89,7 @@ const storeSoccerLeaguesData = async (
 };
 
 (async () => {
-  const soccer_team_data: TLeagueData = await getSoccerLeaguesData(501);
+  const soccer_league_data: TLeagueData = await getSoccerLeaguesData(501);
 
-  storeSoccerLeaguesData(soccer_team_data);
+  storeSoccerLeaguesData(soccer_league_data);
 })();

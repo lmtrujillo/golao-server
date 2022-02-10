@@ -36,7 +36,7 @@ const storeTeamsData = async (teams_data: TTeamData[]): Promise<void> => {
     body: JSON.stringify({
       query: `
       mutation updateTeams($objects: [team_insert_input!]!) {
-        insert_team(on_conflict: {constraint: team_team_id_sports_monk_key, update_columns: [team_name, venue, venue_url]}, objects: $objects) {
+        insert_team(on_conflict: {constraint: team_team_id_sports_monk_key, update_columns: [team_name, venue, venue_url, logo_url]}, objects: $objects) {
           affected_rows
         }
       }
