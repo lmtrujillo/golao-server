@@ -6,6 +6,7 @@ const ajv = new Ajv({ strict: false });
 import { getSeasons } from "./seasonsApi";
 import { getWeeksNSeason } from "./weeksApi";
 import { matchSchema, matchesSchema } from "../../schemas/matchesSchemas";
+import { TMatchDataRaw } from "../scripts/types";
 
 const api_key_token = process.env.API_TOKEN_PARAM! + process.env.API_KEY!;
 
@@ -40,7 +41,7 @@ export async function getMatchesTimeframe(
   var matches = await fetch(endpoint)
     .then((response: any) => response.json())
     .then((res: any) => {
-      return ajv.validate(matchesSchema, res.data) ? res.data : ajv.errors;
+      return res.data;
     })
     .catch((error: any) => {
       return error;
@@ -60,14 +61,21 @@ export async function getMatchesFromNWeekLeague(
   var current_season_id = seasons.find(
     (x: any) => x.is_current_season === true && x.league_id === league_id
   ).id;
-
   var rounds = await getWeeksNSeason(current_season_id);
   var n_round = rounds.find((x: any) => x.name === n_week);
   var round_start_date = n_round.start;
   var round_end_date = n_round.end;
 
   matches = await getMatchesTimeframe(round_start_date, round_end_date);
-  return ajv.validate(matchesSchema, matches) ? matches : ajv.errors;
+  const matches_league_id: any = [];
+  matches.map((match: TMatchDataRaw) => {
+    if (match.league_id == league_id) {
+      matches_league_id.push(match);
+    }
+  });
+  return ajv.validate(matchesSchema, matches_league_id)
+    ? matches_league_id
+    : ajv.errors;
 }
 
 // GET MATCHES FROM TIMEFRAME FOR TEAM

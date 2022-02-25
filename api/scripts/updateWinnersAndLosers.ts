@@ -1,6 +1,5 @@
 import {
   TLeagueWithWeekObjectData,
-  TLastManLeagueData,
   TPickData,
   TMatchWinnerData,
 } from "./types";

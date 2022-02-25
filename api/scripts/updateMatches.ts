@@ -161,7 +161,6 @@ const storeTeamsData = async (matches_data: any): Promise<void> => {
 };
 
 (async () => {
-  const matches_data: TMatchData[] = await getMatchesData(27, 501);
-
+  const matches_data: TMatchData[] = await getMatchesData(26, 8);
   storeTeamsData(matches_data);
 })();
