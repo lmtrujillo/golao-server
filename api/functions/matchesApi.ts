@@ -56,7 +56,6 @@ export async function getMatchesFromNWeekLeague(
   league_id: number
 ): Promise<any> {
   var matches = [];
-
   var seasons = await getSeasons();
   var current_season_id = seasons.find(
     (x: any) => x.is_current_season === true && x.league_id === league_id

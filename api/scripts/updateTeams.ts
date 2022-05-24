@@ -6,7 +6,9 @@ dotenv.config();
 
 const fetch = require("node-fetch");
 
-const getTeamsData = async (country_id: number): Promise<TTeamData[]> => {
+const getTeamsDataByCountryId = async (
+  country_id: number
+): Promise<TTeamData[]> => {
   const teams_raw_data = await getTeamsByCountry(country_id);
 
   const teams_data: TTeamData[] = await Promise.all(
@@ -51,7 +53,7 @@ const storeTeamsData = async (teams_data: TTeamData[]): Promise<void> => {
 };
 
 (async () => {
-  const teams_data: TTeamData[] = await getTeamsData(1161);
+  const teams_data: TTeamData[] = await getTeamsDataByCountryId(462);
 
   storeTeamsData(teams_data);
 })();

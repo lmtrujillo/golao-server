@@ -181,6 +181,13 @@ export type TLeagueData = {
   soccer_league_sports_monk_id: number;
 };
 
+export type TLeagueDataUpdate = {
+  active: boolean;
+  current_season_id: string;
+  current_week_id: number | null;
+  soccer_league_sports_monk_id: number;
+};
+
 export type TLeagueWithWeekObjectData = {
   active: boolean;
   current_season_id: string;
@@ -250,4 +257,13 @@ export type TMatchWinnerData = {
 
 export type TLivesData = {
   lives: number | null;
+};
+
+type TUserId = {
+  user_id: number;
+};
+export type TLastManLeagueUsersPicks = {
+  users: Array<TUserId>;
+  picks: Array<TUserId>;
+  lm_league_id: number;
 };

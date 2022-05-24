@@ -1,4 +1,4 @@
-import { TLeagueData, TLeagueDataRaw } from "./types";
+import { TLeagueData, TLeagueDataRaw, TLeagueDataUpdate } from "./types";
 import dotenv from "dotenv";
 import { getLeague } from "../functions/leaguesApi";
 dotenv.config();
@@ -35,25 +35,24 @@ const fromSportsMonkToGolaoDatabaseWeekId = async (
 
 const getSoccerLeaguesData = async (
   league_id: number
-): Promise<TLeagueData> => {
+): Promise<TLeagueDataUpdate> => {
   const league_raw_data: TLeagueDataRaw = await getLeague(league_id);
+
+  console.log(league_raw_data);
 
   return {
     active: league_raw_data.active,
     current_season_id: league_raw_data.current_season_id!.toString(),
-    logo_url: league_raw_data.logo_path,
-    total_number_of_weeks: 20,
     current_week_id:
       (await fromSportsMonkToGolaoDatabaseWeekId(
         league_raw_data.current_round_id!
       )) || null,
-    name: league_raw_data.name,
     soccer_league_sports_monk_id: league_raw_data.id,
   };
 };
 
-const storeSoccerLeaguesData = async (
-  league_data: TLeagueData
+const updateSoccerLeaguesData = async (
+  league_data: TLeagueDataUpdate
 ): Promise<void> => {
   fetch("https://golao-api.hasura.app/v1/graphql", {
     method: "POST",
@@ -63,24 +62,18 @@ const storeSoccerLeaguesData = async (
     },
     body: JSON.stringify({
       query: `
-      mutation updateLeagues($objects: [soccer_league_insert_input!]!) {
-        insert_soccer_league(on_conflict: {constraint: soccer_league_soccer_league_sports_monk_id_key, update_columns: 
-            [    
-                active,
-                current_season_id,
-                logo_url,
-                total_number_of_weeks,
-                current_week_id,
-                name,
-                soccer_league_sports_monk_id,
-            ]
-        }, objects: $objects) {
+      mutation updateLeagues($active: Boolean!, $current_season_id: String!, $current_week_id: Int!, $soccer_league_sports_monk_id: Int! ) {
+        update_soccer_league(where: {soccer_league_sports_monk_id: {_eq: $soccer_league_sports_monk_id }}, 
+          _set: {active: $active, current_season_id: $current_season_id, current_week_id: $current_week_id }) {
             affected_rows
       }
     }
           `,
       variables: {
-        objects: league_data,
+        active: league_data.active,
+        current_season_id: league_data.current_season_id,
+        current_week_id: league_data.current_week_id,
+        soccer_league_sports_monk_id: league_data.soccer_league_sports_monk_id,
       },
     }),
   })
@@ -89,7 +82,9 @@ const storeSoccerLeaguesData = async (
 };
 
 (async () => {
-  const soccer_league_data: TLeagueData = await getSoccerLeaguesData(501);
+  const soccer_league_data: TLeagueDataUpdate = await getSoccerLeaguesData(8);
 
-  storeSoccerLeaguesData(soccer_league_data);
+  console.log(soccer_league_data);
+
+  updateSoccerLeaguesData(soccer_league_data);
 })();

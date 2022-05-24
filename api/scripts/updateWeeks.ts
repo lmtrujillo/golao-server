@@ -87,8 +87,8 @@ const storeWeeksData = async (weeks_data: TWeekData[]): Promise<void> => {
 
 (async () => {
   const weeks_data: TWeekData[] = await getWeeksData(
-    1659,
-    await fromSportsMonkToGolaoDatabaseSoccerLeagueId(1659)
+    8,
+    await fromSportsMonkToGolaoDatabaseSoccerLeagueId(8)
   );
 
   storeWeeksData(weeks_data);
