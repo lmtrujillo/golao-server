@@ -5,7 +5,7 @@ dotenv.config();
 
 const fetch = require("node-fetch");
 
-const fromSportsMonkToGolaoDatabaseSoccerLeagueId = async (
+export const fromSportsMonkToGolaoDatabaseSoccerLeagueId = async (
   soccer_league_id_sports_monk: number
 ): Promise<number> => {
   return fetch("https://golao-api.hasura.app/v1/graphql", {
@@ -33,7 +33,7 @@ const fromSportsMonkToGolaoDatabaseSoccerLeagueId = async (
     });
 };
 
-const getWeeksData = async (
+export const getWeeksData = async (
   league_id: number,
   league_id_golao: number
 ): Promise<TWeekData[]> => {
@@ -54,7 +54,9 @@ const getWeeksData = async (
   return weeks_data;
 };
 
-const storeWeeksData = async (weeks_data: TWeekData[]): Promise<void> => {
+export const storeWeeksData = async (
+  weeks_data: TWeekData[]
+): Promise<void> => {
   fetch("https://golao-api.hasura.app/v1/graphql", {
     method: "POST",
     headers: {

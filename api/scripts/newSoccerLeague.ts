@@ -35,7 +35,7 @@ const fromSportsMonkToGolaoDatabaseWeekId = async (
     });
 };
 
-const getSoccerLeaguesData = async (
+export const getSoccerLeaguesData = async (
   league_id: number
 ): Promise<TLeagueData> => {
   const league_raw_data: TLeagueDataRaw = await getLeague(league_id);
@@ -56,7 +56,7 @@ const getSoccerLeaguesData = async (
   };
 };
 
-const storeNewSoccerLeaguesData = async (
+export const storeNewSoccerLeaguesData = async (
   league_data: TLeagueData
 ): Promise<void> => {
   fetch("https://golao-api.hasura.app/v1/graphql", {

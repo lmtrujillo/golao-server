@@ -6,7 +6,7 @@ dotenv.config();
 
 const fetch = require("node-fetch");
 
-const getTeamsDataByCountryId = async (
+export const getTeamsDataByCountryId = async (
   country_id: number
 ): Promise<TTeamData[]> => {
   const teams_raw_data = await getTeamsByCountry(country_id);
@@ -28,7 +28,9 @@ const getTeamsDataByCountryId = async (
   return teams_data;
 };
 
-const storeTeamsData = async (teams_data: TTeamData[]): Promise<void> => {
+export const storeTeamsData = async (
+  teams_data: TTeamData[]
+): Promise<void> => {
   fetch("https://golao-api.hasura.app/v1/graphql", {
     method: "POST",
     headers: {

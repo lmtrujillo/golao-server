@@ -9,7 +9,7 @@ dotenv.config();
 
 const fetch = require("node-fetch");
 
-const getSoccerLeaguesHasura = async (): Promise<
+export const getSoccerLeaguesHasura = async (): Promise<
   TLeagueWithWeekObjectData[]
 > => {
   return fetch("https://golao-api.hasura.app/v1/graphql", {
@@ -340,7 +340,7 @@ const CheckPickNotMade = async (
   );
 };
 
-const updateWinnersAndLosers = async (
+export const updateWinnersAndLosers = async (
   soccer_leagues: TLeagueWithWeekObjectData[]
 ): Promise<void> => {
   soccer_leagues.forEach(async (soccer_league: TLeagueWithWeekObjectData) => {
@@ -349,11 +349,18 @@ const updateWinnersAndLosers = async (
       soccer_league.current_week == null
     )
       return null;
-    const week_to_update_id =
+    var week_to_update_id =
       soccer_league.current_week.week_number > 1
         ? soccer_league.current_week_id - 1
         : null;
     if (week_to_update_id == null) return null;
+    if (
+      soccer_league.current_week.week_number ==
+      soccer_league.total_number_of_weeks
+    ) {
+      week_to_update_id = soccer_league.current_week_id;
+    }
+
     const picks: TPickData[] = await getPicksHasura(
       soccer_league.soccer_league_id,
       week_to_update_id
